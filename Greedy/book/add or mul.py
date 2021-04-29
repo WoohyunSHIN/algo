@@ -6,8 +6,6 @@ def my_main(data:str)->int:
     new_data = []
     for idx in range(len(data)):
         new_data.append(int(data[idx]))
-    
-    print(new_data)
 
     ret = int(new_data[0])
 

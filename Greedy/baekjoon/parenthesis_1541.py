@@ -14,7 +14,6 @@ def main(data:str)->int:
             right = list(map(int,p.findall(right)))
             left = list(map(int,p.findall(left)))
 
-
             ret = sum(right) - sum(left)
             return ret
 

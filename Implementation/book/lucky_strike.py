@@ -1,6 +1,3 @@
-
-
-
 n = input()
 
 def my_main(n:str)->str:

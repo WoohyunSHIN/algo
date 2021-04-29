@@ -11,7 +11,6 @@ for _ in range(n):
 
 def _resize(m:int, n:int, keys:list)->list:
     ret = []
-    #gap = n-m
     for i in range(n):
         tmp = []
         for j in range(n):
@@ -23,7 +22,6 @@ def _resize(m:int, n:int, keys:list)->list:
 
     return ret
 
-
 def _rotation_90(keys:list)->list:
     ret = []
 
@@ -33,25 +31,6 @@ def _rotation_90(keys:list)->list:
             tmp.append(keys[len(keys)-col_idx-1][row_idx])
         ret.append(tmp)
 
-    """
-    (1,1) (1,2) (1,3)
-    (2,1) (2,2) (2,3)
-    (3,1) (3,2) (3,3)
-
-    1 2 3 
-    4 5 6
-    7 8 9
-    """
-
-    """
-    (1,3) (2,3) (3,3)
-    (1,2) (2,2) (3,2)
-    (1,1) (2,1) (3,1)
-    
-    7 4 1
-    8 5 2
-    9 6 3
-    """
     return ret
 
 def _checker(keys:list,locks:list)->bool:
@@ -65,8 +44,11 @@ def _checker(keys:list,locks:list)->bool:
 
     return ret
 
-def _move(keys:list)->list:
+def _move(keys:list,times:int)->list:
     ret = []
+
+
+
     return ret
 
 
@@ -79,7 +61,8 @@ def my_main(m:int, n:int, keys:list, locks:list)->bool:
     print(f"keys {keys}")
     print("----")
 
-    for _ in range(n*n):
+    for times in range(n*n):
+        _move(keys,times)
 
         for _ in range(4):
             keys = _rotation_90(keys)
