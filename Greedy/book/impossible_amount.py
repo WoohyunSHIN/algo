@@ -5,7 +5,6 @@ def my_main(n:int, data:list)->int:
     ret = 0
     amount = sum(data)
     coin_types = sorted(data, reverse=True)
-
     for target in range(amount):
         tmp = target
         for coin in coin_types:
