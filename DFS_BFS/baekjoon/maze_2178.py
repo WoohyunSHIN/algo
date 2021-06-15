@@ -2,7 +2,6 @@ from collections import deque
 
 n, m = map(int, input().split())
 
-# graph = [[0]*m for _ in range(n)]
 graph = []
 for _ in range(n):
     row = list(input())
@@ -21,6 +20,9 @@ def _dfs(graph:list,x:int,y:int,n:int,m:int)->int:
     while queue:
         x, y = queue.popleft()
 
+        if x == n-1 and y == m-1:
+            break
+
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
@@ -32,10 +34,9 @@ def _dfs(graph:list,x:int,y:int,n:int,m:int)->int:
                 continue
 
             if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y]+ 1
+                graph[nx][ny] = graph[x][y] + 1
                 queue.append((nx,ny))
-                ret += 1
-
+    ret = graph[-1][-1]
     return ret
 
 def main(n:int,m:int,graph:list)->int:
