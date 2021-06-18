@@ -1,63 +1,48 @@
 from collections import deque
 t = int(input())
 
-def _dfs(i:int,j:int,graph:list)->bool:
-    if i <= -1 or j <= -1 or i >= m or j >= n:
-        return False
+def _bfs(x:int,y:int,graph:list,cnt:int,m:int,n:int):
+    visited = [[0]*m for _ in range(n)]
 
-    if graph[j][i] == 1:
-        graph[j][i] = 0
-        _dfs(i+1,j,graph)
-        _dfs(i-1,j,graph)
-        _dfs(i,j+1,graph)
-        _dfs(i,j-1,graph)
-        return True
+    q = deque()
+    q.append([x,y])
+    visited[y][x] = 1
+    graph[y][x] = cnt
 
-    return False
-
-def _bfs(graph:list,x:int,y:int)->int:
     dx = [0,0,-1,1]
     dy = [1,-1,0,0]
 
-    queue = deque()
-    queue.append((x,y))
-
-    while queue:
-        print(graph)
-        print("---")
-        x, y = queue.popleft()
+    while q:
+        x, y = q.popleft()
 
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if nx <= -1 or ny <= -1 or nx >= n or ny >= m:
+            if ny <= -1 or nx <= -1 or ny >= n or nx >= m:
                 continue
 
-            try:
-                if graph[nx][ny] == 0:
-                    continue
-            except:
-                print(f"nx{nx} ny{ny}")
+            if graph[ny][nx] == 0:
+                continue
 
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = 0
-                queue.append((nx,ny))
+            if graph[ny][nx] == 1 and visited[ny][nx] == 0:
+                graph[ny][nx] = cnt
+                q.append([nx,ny])
+                visited[ny][nx] = 1
 
-
-def main(m:int,n:int,k:int,graph:list)->int:
+def main(m:int, n:int, k:int, graph:list)->int:
     ret = 0
-    for i in range(m):
-        for j in range(n):
-            # if _dfs(i,j,graph) == True:
-            #     ret += 1
-    
-            if graph[i][j] == 1:
-                _bfs(graph,i,j)
-                graph[i][j] = 0 
-                ret += 1
-    return ret
+    cnt = 2
+    for x in range(m):
+        for y in range(n):
+            if graph[y][x] == 1:
+                _bfs(x,y,graph,cnt,m,n)
+                cnt += 1
 
+    graph = sum(graph,[])
+    ret = max(graph) - 1
+
+    return ret
 
 results = []
 for _ in range(t):

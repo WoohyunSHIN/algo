@@ -1,59 +1,36 @@
-# from collections import deque
-# n, k = map(int,input().split())
-
-# def main(n:int,k:int)->int:
-#     ret = 0
-#     visited = set([])
-
-#     queue = deque()
-#     queue.append([n])
-
-#     while queue:
-#         x = queue.popleft()
-
-#         sum_nx = 
-#         minus_nx = 
-#         multi_nx = 
-
-
-#     return ret
-
-# print(main(n,k))
-
-
-
-
 from collections import deque
+
 n, k = map(int,input().split())
 
-def main(n:int,k:int)->int:
-    ret = 0
-    visited = set([])
+def _dfs(n:int,k:int)->int:
+    ret = 0 
+    LIMIT = 100001
+    visited = [0] * LIMIT
 
-    queue = deque()
-    queue.append([n])
+    q = deque()
+    q.append([n,0])
 
-    cnt = 0
+    while q:
+        x, cnt = q.popleft()
 
-    while queue:
-        tmp = []
-        x = queue.popleft()
-        visited = set(list(visited) + x)
-        print(visited)
-
-        if k in x:
+        if x == k:
             ret = cnt
             break
 
-        tmp += list(map(lambda i:i+1,x))
-        tmp += list(map(lambda i:i-1,x))
-        tmp += list(map(lambda i:i*2,x))
+        for nx in [x+1,x-1,x*2]:
+            if nx <= -1 or nx >= LIMIT:
+                continue
 
-        tmp = [x for x in tmp if (0 <= x and x <= 100000)] 
-        tmp = list(set(tmp)-visited)
+            if visited[nx] == 0:
+                visited[nx] = 1
+                q.append([nx,cnt+1])
 
-        queue.append(tmp)
-        cnt += 1
+    return ret
+
+def main(n:int,k:int)->int:
+    ret = 0
+
+    ret = _dfs(n,k)
 
     return ret
 

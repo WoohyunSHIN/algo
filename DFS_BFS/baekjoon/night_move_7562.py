@@ -10,17 +10,12 @@ def _dfs(l:int, start:list, end:list)->int:
     dy = [1,-1,1,-1,2,-2,2,-2]
 
     q = deque()
-    # start
-    # [0,0,0]
     start.append(0)
     q.append(start)
     visited = [[0]*l for _ in range(l)]
 
     while q:
-        # print(visited)
         x, y, cnt= q.popleft()
-        # visited[y][x] = 1
-        # visited.append((x,y))
 
         if [x,y] == end:
             ret = visited[y][x]
@@ -55,42 +50,6 @@ for _ in range(case):
     start = list(map(int,input().split()))
     end = list(map(int,input().split()))
     print(main(l,start,end))
-print("time : ", time.time() - t_start)
 
-"""
-Case 1.
-1
-8
-0 0
-7 0
 
-ans = 5
-"""
-
-"""
-1
-10
-1 1
-1 1
-
-ans = 0
-"""
-
-"""
-1
-10
-1 1
-3 0
-
-ans = 1
-"""
-
-"""
-1
-100
-0 0
-30 50
-
-ans = 25
-"""
 
