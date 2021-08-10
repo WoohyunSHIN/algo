@@ -9,37 +9,40 @@ for _ in range(n):
 
 def _bfs(n:int,m:int,graph:list,x:int,y:int)->int:
     ret = 0
-    
-    q = deque()
-    q.append((x,y))
+    visited = [[0]*m for _ in range(n)]
+    visited[y][x] = 1
 
-    dx = [0,0,1,-1]
+    q = deque()
+    q.append([x,y,1])
+    dx = [0,0,-1,1]
     dy = [1,-1,0,0]
 
     while q:
-        x, y = q.popleft()
-
+        print(q)
+        x, y, drill = q.popleft()
         for i in range(4):
-            nx = dx[i] + x
-            ny = dy[i] + y
+            nx = x + dx[i]
+            ny = y + dy[i]
 
-            if nx <= -1 or ny <= -1 or nx >= m or ny >= n:
-                continue   
+            if nx <= -1 or ny <= -1 or nx >= n or ny >= m:
+                continue
 
             if graph[ny][nx] == 1:
                 continue
 
-            if graph[ny][nx] == 0:
-                graph[ny][nx] = graph[y][x] + 2
-                q.append((nx,ny))
+            if graph[ny][nx] == 0 and visited[ny][nx] == 0:
+                graph[ny][nx] = graph[y][x] + 1 
+                visited[ny][nx] = 1
+                q.append([ny,nx,drill])
                 print(graph)
-
+            
+    
     return ret
 
 def main(n:int,m:int,graph:list)->int:
     ret = 0
 
-    ret = _bfs(n,m,graph,0,0)
+    _bfs(n,m,graph,0,0)
 
     return ret
 
