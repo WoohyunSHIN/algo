@@ -33,6 +33,7 @@ def topology_sort(n:int,graph:list,indegree:list,time:list)->None:
 
         for node in graph[now]:
             # 핵심 코드
+            # result[node] = result[now] + time[node]
             result[node] = max(result[node],result[now] + time[node])
             print(f"result[node] = {result[node]}")
             indegree[node] -= 1
